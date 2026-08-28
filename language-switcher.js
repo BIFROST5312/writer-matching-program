@@ -225,6 +225,7 @@
     const coreCopy = new Map([
       ['시작하기', 'Start'],
       ['매칭 결과 보기', 'View match result'],
+      ['생일 정보는 저장되지 않습니다.', 'The birthdate information will not be saved.'],
       ['문학적 DNA를 읽는 중', 'Reading your literary DNA'],
       ['당신만의 문장과 닮은 작가를 찾고 있어요.', 'Finding the writer whose words resonate with yours.'],
       ['처음으로', 'Home'],
