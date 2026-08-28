@@ -69,7 +69,17 @@
       libraryTab.classList.add('text-primary', 'font-bold');
       libraryTab.setAttribute('aria-current', 'page');
     }
-    if (matchHeading) matchHeading.textContent = "Writer's Profile";
+    if (matchHeading) {
+      matchHeading.textContent = "Writer's Profile";
+      const libraryUrl = new URL('../_library/code.html', window.location.href);
+      if (language === 'en') libraryUrl.searchParams.set('lang', 'en');
+      const backButton = document.createElement('a');
+      backButton.href = libraryUrl.toString();
+      backButton.setAttribute('aria-label', '라이브러리로 돌아가기');
+      backButton.className = 'flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-on-surface transition-colors hover:bg-surface-variant/30';
+      backButton.innerHTML = '<span class="material-symbols-outlined text-[22px]">arrow_back</span>';
+      matchHeading.parentElement.prepend(backButton);
+    }
   }
 
   document.querySelectorAll('button, a').forEach((element) => {
