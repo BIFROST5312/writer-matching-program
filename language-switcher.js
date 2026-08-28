@@ -256,7 +256,7 @@
       ['이름', 'Name'],
       ['이름을 입력해 주세요', 'Enter your name'],
       ['매칭 결과 보기', 'View match result'],
-      ['생일 정보는 저장되지 않습니다.', 'The birthdate information will not be saved.'],
+      ['이름과 생년월일 정보는 저장되지 않습니다.', 'Name and birthdate information will not be saved.'],
       ['문학적 DNA를 읽는 중', 'Reading your literary DNA'],
       ['당신만의 문장과 닮은 작가를 찾고 있어요.', 'Finding the writer whose words resonate with yours.'],
       ['처음으로', 'Home'],
