@@ -51,6 +51,19 @@
     matchHeading.textContent = `매칭결과: ${matchedAuthorNames[resultId]}`;
   }
 
+  if (url.searchParams.get('from') === 'library') {
+    const matchTab = document.querySelector('nav [data-path="match-discovery"]');
+    const libraryTab = document.querySelector('nav [data-path="library"]');
+    if (matchTab && libraryTab) {
+      matchTab.classList.remove('text-primary', 'font-bold');
+      matchTab.classList.add('text-on-surface-variant');
+      matchTab.removeAttribute('aria-current');
+      libraryTab.classList.remove('text-on-surface-variant');
+      libraryTab.classList.add('text-primary', 'font-bold');
+      libraryTab.setAttribute('aria-current', 'page');
+    }
+  }
+
   const heroImage = document.getElementById('hero-image');
   if (heroImage && window.matchMedia('(min-aspect-ratio: 1 / 1)').matches) {
     heroImage.parentElement.style.aspectRatio = '16 / 6';
