@@ -43,6 +43,12 @@
     9: '단테 알리기에리', 10: '루쉰', 11: '나관중', 12: '표도르 도스토옙스키',
     13: '제인 오스틴', 14: '호르헤 루이스 보르헤스', 16: '에밀리 브론테', 17: '요한 볼프강 폰 괴테'
   };
+  const englishAuthorNames = {
+    1: 'Yi Sang', 2: 'Natsume Sōseki', 3: 'Ryūnosuke Akutagawa', 4: 'Miguel de Cervantes',
+    5: 'Leo Tolstoy', 6: 'Franz Kafka', 7: 'Hermann Hesse', 8: 'Albert Camus',
+    9: 'Dante Alighieri', 10: 'Lu Xun', 11: 'Luo Guanzhong', 12: 'Fyodor Dostoevsky',
+    13: 'Jane Austen', 14: 'Jorge Luis Borges', 16: 'Emily Brontë', 17: 'Johann Wolfgang von Goethe'
+  };
   const resultId = url.pathname.match(/\/_([0-9]+)\/code\.html$/)?.[1];
   const publicDomainPortraits = {
     1: 'Leesang.jpg',
@@ -177,6 +183,15 @@
       }
     });
     await Promise.all(workers);
+
+    if (englishAuthorNames[resultId]) {
+      const authorName = englishAuthorNames[resultId];
+      const mainTitle = document.querySelector('main h1');
+      if (mainTitle) mainTitle.textContent = authorName;
+      if (url.searchParams.get('from') !== 'library' && matchHeading) {
+        matchHeading.textContent = `Match result: ${authorName}`;
+      }
+    }
   }
 
   translatePage();
