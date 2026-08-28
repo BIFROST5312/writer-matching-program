@@ -157,6 +157,26 @@
   }
 
   document.documentElement.lang = 'en';
+  // Native date controls follow the device locale, so the English screen uses
+  // a fixed ISO-style field instead: YYYY-MM-DD.
+  const birthdateInput = document.getElementById('birthdate');
+  if (birthdateInput) {
+    birthdateInput.type = 'text';
+    birthdateInput.placeholder = 'YYYY-MM-DD';
+    birthdateInput.inputMode = 'numeric';
+    birthdateInput.pattern = '\\d{4}-\\d{2}-\\d{2}';
+    birthdateInput.setAttribute('aria-label', 'Birthdate (YYYY-MM-DD)');
+    birthdateInput.addEventListener('input', () => {
+      const value = birthdateInput.value;
+      const [year, month, day] = value.split('-').map(Number);
+      const parsed = new Date(Date.UTC(year, month - 1, day));
+      const isValid = /^\d{4}-\d{2}-\d{2}$/.test(value)
+        && parsed.getUTCFullYear() === year
+        && parsed.getUTCMonth() === month - 1
+        && parsed.getUTCDate() === day;
+      birthdateInput.setCustomValidity(value && !isValid ? 'Please use a valid date in YYYY-MM-DD format.' : '');
+    });
+  }
   document.querySelectorAll('a[href]').forEach((link) => {
     const linkUrl = new URL(link.href, window.location.href);
     if (linkUrl.origin === window.location.origin) {
