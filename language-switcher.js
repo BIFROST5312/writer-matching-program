@@ -207,6 +207,13 @@
       if (homeQuote) homeQuote.innerHTML = 'Meet the sound of<br>souls on paper';
       if (homeTitle) homeTitle.innerHTML = 'Find your literary<br>companion';
     }
+
+    if (url.pathname.endsWith('/_18/code.html')) {
+      const birthTitle = document.querySelector('main h1');
+      const birthDescription = birthTitle?.parentElement.querySelector('p');
+      if (birthTitle) birthTitle.innerHTML = 'Please enter your<br>birthdate';
+      if (birthDescription) birthDescription.textContent = 'We will match your literary companion';
+    }
   }
 
   translatePage();
