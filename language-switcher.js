@@ -143,12 +143,22 @@
   });
 
   const mobileScrollStyle = document.createElement('style');
-  // Some mobile browsers inherit fixed-height or touch settings from the
-  // generated screen markup. Force the document itself to remain scrollable.
+  // In embedded mobile webviews the document itself may not receive swipe
+  // events. Give every screen its own explicit, touch-scrollable main area.
   mobileScrollStyle.textContent = `
-    html { min-height: 100%; height: auto !important; overflow-x: hidden !important; overflow-y: auto !important; touch-action: pan-y pinch-zoom; }
-    body { min-height: 100dvh; height: auto !important; overflow-x: hidden !important; overflow-y: auto !important; position: relative !important; -webkit-overflow-scrolling: touch; touch-action: pan-y pinch-zoom; }
-    main { min-height: auto !important; }
+    html, body { height: 100%; max-height: 100%; overflow: hidden !important; }
+    main {
+      height: 100vh !important;
+      max-height: 100vh !important;
+      height: 100dvh !important;
+      max-height: 100dvh !important;
+      min-height: 0 !important;
+      overflow-x: hidden !important;
+      overflow-y: scroll !important;
+      overscroll-behavior-y: contain;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
+    }
   `;
   document.head.appendChild(mobileScrollStyle);
 
