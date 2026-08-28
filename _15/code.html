@@ -43,7 +43,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const langToggle = document.getElementById('lang-toggle');
-        const langText = langToggle.querySelector('span:last-child');
+        const langText = langToggle?.querySelector('span:last-child');
         const mainQuote = document.getElementById('main-quote');
         const titleText = document.querySelector('h1');
         const btnText = document.querySelector('button.group span:first-of-type');
@@ -51,7 +51,7 @@
 
         let isKorean = true;
 
-        langToggle.addEventListener('click', () => {
+        if (langToggle) langToggle.addEventListener('click', () => {
             isKorean = !isKorean;
             
             // Fade out
@@ -79,7 +79,7 @@
             }, 300); // Wait for fade out
         });
 
-        startButton.addEventListener('click', () => {
+        startButton?.addEventListener('click', () => {
             window.location.href = '../_18/code.html';
         });
     });
