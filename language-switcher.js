@@ -218,6 +218,58 @@
   }
 
   document.documentElement.lang = 'en';
+
+  // Keep the main journey usable even if the automatic translation service is
+  // slow or unavailable in an embedded browser.
+  function applyEnglishCoreCopy() {
+    const coreCopy = new Map([
+      ['시작하기', 'Start'],
+      ['매칭 결과 보기', 'View match result'],
+      ['문학적 DNA를 읽는 중', 'Reading your literary DNA'],
+      ['당신만의 문장과 닮은 작가를 찾고 있어요.', 'Finding the writer whose words resonate with yours.'],
+      ['처음으로', 'Home'],
+      ['다른 문학적 동반자들을 만나보세요.', 'Meet other literary companions.'],
+      ['작가 결과 보기 →', 'View writer profile →'],
+      ['작가 더 보기', 'View more writers'],
+      ['문학적 DNA 분석', 'Literary DNA analysis']
+    ]);
+    const textWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const coreTextNodes = [];
+    while (textWalker.nextNode()) coreTextNodes.push(textWalker.currentNode);
+    coreTextNodes.forEach((node) => {
+      const trimmed = node.nodeValue.trim();
+      const replacement = coreCopy.get(trimmed);
+      if (replacement) node.nodeValue = node.nodeValue.replace(trimmed, replacement);
+    });
+
+    document.querySelectorAll('#author-list a[href]').forEach((link) => {
+      const authorId = link.href.match(/\/_([0-9]+)\/code\.html/)?.[1];
+      const authorLabel = link.querySelectorAll('span')[1];
+      if (authorId && authorLabel && englishAuthorNames[authorId]) {
+        authorLabel.textContent = englishAuthorNames[authorId];
+      }
+    });
+
+    if (url.pathname.endsWith('/_15/code.html')) {
+      const homeQuote = document.getElementById('main-quote');
+      const homeTitle = document.querySelector('main h1');
+      if (homeQuote) homeQuote.innerHTML = 'Meet the sound of<br>souls on paper';
+      if (homeTitle) homeTitle.innerHTML = 'Find your literary<br>companion';
+    }
+
+    if (url.pathname.endsWith('/_18/code.html')) {
+      const birthTitle = document.querySelector('main h1');
+      const birthDescription = birthTitle?.parentElement.querySelector('p');
+      if (birthTitle) birthTitle.innerHTML = 'Please enter your<br>birthdate';
+      if (birthDescription) birthDescription.textContent = 'We will match your literary companion';
+    }
+
+    if (englishAuthorNames[resultId] && url.searchParams.get('from') !== 'library' && matchHeading) {
+      matchHeading.textContent = `Match result: ${englishAuthorNames[resultId]}`;
+    }
+  }
+
+  applyEnglishCoreCopy();
   document.querySelectorAll('a[href]').forEach((link) => {
     const linkUrl = new URL(link.href, window.location.href);
     if (linkUrl.origin === window.location.origin) {
