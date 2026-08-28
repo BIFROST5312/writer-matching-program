@@ -61,6 +61,24 @@
     9: 'Dante Alighieri', 10: 'Lu Xun', 11: 'Luo Guanzhong', 12: 'Fyodor Dostoevsky',
     13: 'Jane Austen', 14: 'Jorge Luis Borges', 16: 'Emily Brontë', 17: 'Johann Wolfgang von Goethe'
   };
+  const englishProfiles = {
+    1: { tags: ['modernism', 'urban_solitude', 'experimentation'], role: 'Your modernist rebel', works: 'Crow’s-Eye View, Wings, and The Diary of a Rainy Day', theme: 'A voice that turns fractured city life into daring new forms.', traits: ['Formal experimentation', 'Urban sensibility', 'Inner conflict'], bio: 'A Korean modernist whose compressed, inventive writing captured the anxiety and speed of a changing era.' },
+    2: { tags: ['introspection', 'modern_japan', 'human_nature'], role: 'Your quiet observer', works: 'I Am a Cat, Botchan, and Kokoro', theme: 'A calm gaze on the distance between the self and the world.', traits: ['Psychological insight', 'Gentle irony', 'Modern selfhood'], bio: 'A defining voice of modern Japanese literature, known for subtle portraits of solitude, friendship, and moral uncertainty.' },
+    3: { tags: ['short_stories', 'moral_ambiguity', 'modernism'], role: 'Your sharp-eyed storyteller', works: 'Rashomon, In a Grove, and Kappa', theme: 'A story can reveal more than one truth at once.', traits: ['Moral ambiguity', 'Precise narration', 'Social satire'], bio: 'A master of the Japanese short story whose work tests the borders between fact, motive, and imagination.' },
+    4: { tags: ['adventure', 'satire', 'idealism'], role: 'Your wandering idealist', works: 'Don Quixote and Exemplary Novels', theme: 'The imagination can make even an ordinary road feel immense.', traits: ['Comic vision', 'Idealism', 'Narrative invention'], bio: 'The Spanish novelist whose comic, humane imagination shaped the modern novel.' },
+    5: { tags: ['realism', 'ethics', 'society'], role: 'Your moral realist', works: 'War and Peace, Anna Karenina, and The Death of Ivan Ilyich', theme: 'A life becomes clearer when we look honestly at love, duty, and death.', traits: ['Ethical reflection', 'Epic scale', 'Social observation'], bio: 'A Russian novelist celebrated for expansive stories that bring private conscience and public life into the same frame.' },
+    6: { tags: ['absurdity', 'existentialism', 'kafkaesque'], role: 'Your literary shadow', works: 'The Metamorphosis, The Trial, and The Castle', theme: 'A lucid imagination for the strange rules that shape ordinary lives.', traits: ['Absurdist feeling', 'Existential anxiety', 'Symbolic narrative'], bio: 'A pioneer of modern literature whose surreal worlds explore alienation, bureaucracy, and the uncertainty of being human.' },
+    7: { tags: ['self_discovery', 'spirituality', 'inner_life'], role: 'Your inward traveler', works: 'Siddhartha, Steppenwolf, and Demian', theme: 'The path inward is often the beginning of a new world.', traits: ['Inner insight', 'Symbolic narrative', 'Spiritual quest'], bio: 'A German-Swiss writer whose novels follow the search for wholeness, freedom, and an authentic self.' },
+    8: { tags: ['existentialism', 'absurdity', 'rebellion'], role: 'Your literary rebel', works: 'The Stranger, The Plague, and The Myth of Sisyphus', theme: 'Even in an absurd world, solidarity and resistance still matter.', traits: ['Existential rebellion', 'Sense of the absurd', 'Ethical reflection'], bio: 'A French writer and philosopher who explored how people can meet meaninglessness with clarity, courage, and care for others.' },
+    9: { tags: ['poetry', 'journey', 'afterlife'], role: 'Your guide through the unknown', works: 'The Divine Comedy, Vita Nuova, and De Monarchia', theme: 'A journey through darkness can become a map toward understanding.', traits: ['Poetic imagination', 'Moral vision', 'Symbolic journey'], bio: 'The Italian poet whose visionary journey through the afterlife remains one of world literature’s great imaginative achievements.' },
+    10: { tags: ['social_critique', 'modern_china', 'awakening'], role: 'Your clear-eyed critic', works: 'A Madman’s Diary, The True Story of Ah Q, and Call to Arms', theme: 'To see a society clearly is the first step toward changing it.', traits: ['Social critique', 'Satirical edge', 'Human insight'], bio: 'A foundational modern Chinese writer whose fiction confronted social injustice, habit, and collective denial.' },
+    11: { tags: ['history', 'strategy', 'epic'], role: 'Your strategist of stories', works: 'Romance of the Three Kingdoms and Su Ho Zhuan', theme: 'Ambition, loyalty, and strategy reveal themselves most clearly under pressure.', traits: ['Epic storytelling', 'Strategic vision', 'Historical imagination'], bio: 'A central figure of Chinese classical fiction, celebrated for sweeping tales of conflict, loyalty, and political intrigue.' },
+    12: { tags: ['psychology', 'faith', 'moral_conflict'], role: 'Your explorer of conscience', works: 'Crime and Punishment, The Brothers Karamazov, and Notes from Underground', theme: 'The deepest conflicts are often the ones we carry within.', traits: ['Psychological depth', 'Moral conflict', 'Philosophical inquiry'], bio: 'A Russian novelist whose intense characters confront guilt, faith, freedom, and the need for redemption.' },
+    13: { tags: ['romance', 'wit', 'society'], role: 'Your witty companion', works: 'Pride and Prejudice, Sense and Sensibility, and Emma', theme: 'A sharp eye and a warm heart can make social life far more interesting.', traits: ['Social wit', 'Emotional insight', 'Character comedy'], bio: 'An English novelist admired for elegant stories about love, class, judgment, and the intelligence of everyday life.' },
+    14: { tags: ['labyrinths', 'infinity', 'imagination'], role: 'Your maker of labyrinths', works: 'Ficciones, The Aleph, and Labyrinths', theme: 'Every library can open into an infinite universe.', traits: ['Philosophical fantasy', 'Intellectual maze', 'Metaphysical inquiry'], bio: 'An Argentine writer whose stories transform mirrors, libraries, time, and memory into dazzling philosophical puzzles.' },
+    16: { tags: ['gothic', 'passion', 'nature'], role: 'Your wild romantic', works: 'Wuthering Heights and Poems by Emily Brontë', theme: 'Passion and landscape can speak with the same fierce intensity.', traits: ['Emotional intensity', 'Gothic atmosphere', 'Natural imagery'], bio: 'An English novelist and poet remembered for the elemental power, haunting mood, and fierce emotion of Wuthering Heights.' },
+    17: { tags: ['humanism', 'philosophy', 'classicism'], role: 'Your seeker of horizons', works: 'Faust, The Sorrows of Young Werther, and Wilhelm Meister’s Apprenticeship', theme: 'A restless mind can turn learning, longing, and action into a life’s work.', traits: ['Philosophical depth', 'Humanist insight', 'Classical beauty'], bio: 'A German writer, thinker, and scientist whose work embraces emotion, reason, art, and the lifelong pursuit of growth.' }
+  };
   const resultId = url.pathname.match(/\/_([0-9]+)\/code\.html$/)?.[1];
   const publicDomainPortraits = {
     1: 'Leesang.jpg',
@@ -270,7 +288,50 @@
     }
   }
 
+  function applyFixedEnglishProfile() {
+    const profile = englishProfiles[resultId];
+    const resultView = document.querySelector('[data-view="match-result"]');
+    if (!profile || !resultView) return;
+
+    const hero = resultView.children[0];
+    const details = resultView.children[1];
+    const tags = hero?.querySelector('[aria-label="Tags"]');
+    if (tags) {
+      tags.innerHTML = profile.tags.map((tag) => `<span class="inline-flex items-center px-3 py-1 bg-tertiary-container/10 text-on-tertiary-fixed-variant font-label-sm text-label-sm rounded-full backdrop-blur-sm">#${tag}</span>`).join('');
+    }
+    const heroTitle = hero?.querySelector('h1');
+    const heroParagraphs = hero?.querySelectorAll('p');
+    if (heroTitle) heroTitle.textContent = englishAuthorNames[resultId];
+    if (heroParagraphs?.[0]) heroParagraphs[0].textContent = profile.role;
+    if (heroParagraphs?.[1]) heroParagraphs[1].textContent = `Major works: ${profile.works}`;
+
+    const quoteCard = details?.children[0];
+    const quoteParagraphs = quoteCard?.querySelectorAll('p');
+    if (quoteParagraphs?.[0]) quoteParagraphs[0].textContent = profile.theme;
+    if (quoteParagraphs?.[1]) quoteParagraphs[1].textContent = 'Writer profile';
+
+    const analysisTitle = details?.querySelector('h2');
+    if (analysisTitle) {
+      const titleText = Array.from(analysisTitle.childNodes).find((node) => node.nodeType === Node.TEXT_NODE && node.nodeValue.trim());
+      if (titleText) titleText.nodeValue = ' Literary DNA analysis';
+    }
+    const dnaCard = analysisTitle?.nextElementSibling;
+    Array.from(dnaCard?.children || []).forEach((traitRow, index) => {
+      const label = traitRow.querySelector('.flex.justify-between span:first-child');
+      if (label && profile.traits[index]) label.textContent = profile.traits[index];
+    });
+    const profileSummary = dnaCard?.nextElementSibling;
+    if (profileSummary?.tagName === 'P') profileSummary.textContent = profile.bio;
+
+    const moreButton = details?.querySelector('button');
+    if (moreButton) {
+      const buttonText = Array.from(moreButton.childNodes).find((node) => node.nodeType === Node.TEXT_NODE && node.nodeValue.trim());
+      if (buttonText) buttonText.nodeValue = ' View more writers ';
+    }
+  }
+
   applyEnglishCoreCopy();
+  applyFixedEnglishProfile();
   document.querySelectorAll('a[href]').forEach((link) => {
     const linkUrl = new URL(link.href, window.location.href);
     if (linkUrl.origin === window.location.origin) {
