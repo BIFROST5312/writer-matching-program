@@ -257,7 +257,7 @@
     document.documentElement.lang = 'ko';
     if (matchingName && matchedAuthorNames[resultId] && url.searchParams.get('from') !== 'library') {
       const heroParagraphs = document.querySelector('[data-view="match-result"]')?.children[0]?.querySelectorAll('p');
-      if (heroParagraphs?.[0]) heroParagraphs[0].textContent = `${matchingName}님의 문학적 영혼의 짝은 ${matchedAuthorNames[resultId]}입니다.`;
+      if (heroParagraphs?.[0]) heroParagraphs[0].textContent = `${matchingName}님의 문학적 성향과 가장 닮은 작가는 ${matchedAuthorNames[resultId]}입니다.`;
     }
     normalizeHashtags();
     return;
@@ -334,7 +334,7 @@
     if (heroTitle) heroTitle.textContent = englishAuthorNames[resultId];
     if (heroParagraphs?.[0]) {
       heroParagraphs[0].textContent = matchingName && url.searchParams.get('from') !== 'library'
-        ? `${matchingName}'s literary soulmate is ${englishAuthorNames[resultId]}.`
+        ? `The writer whose literary sensibility most closely resembles ${matchingName}'s is ${englishAuthorNames[resultId]}.`
         : profile.role;
     }
     if (heroParagraphs?.[1]) heroParagraphs[1].textContent = `Major works: ${profile.works}`;
