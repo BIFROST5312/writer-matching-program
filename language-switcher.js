@@ -65,6 +65,16 @@
     if (matchHeading) matchHeading.textContent = "Writer's Profile";
   }
 
+  document.querySelectorAll('button, a').forEach((element) => {
+    if (element.textContent.replace(/\s+/g, '') !== '작가더보기') return;
+    element.addEventListener('click', (event) => {
+      event.preventDefault();
+      const libraryUrl = new URL('../_library/code.html', window.location.href);
+      if (language === 'en') libraryUrl.searchParams.set('lang', 'en');
+      window.location.href = libraryUrl.toString();
+    });
+  });
+
   const heroImage = document.getElementById('hero-image');
   if (heroImage && window.matchMedia('(min-aspect-ratio: 1 / 1)').matches) {
     heroImage.parentElement.style.aspectRatio = '16 / 6';
