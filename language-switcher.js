@@ -151,8 +151,19 @@
     heroImage.parentElement.style.minHeight = '360px';
   }
 
+  function normalizeHashtags() {
+    document.querySelectorAll('[aria-label="Tags"] span').forEach((tag) => {
+      tag.textContent = tag.textContent
+        .trim()
+        .replace(/^#\s*/, '#')
+        .replace(/\s+/g, '_')
+        .toLowerCase();
+    });
+  }
+
   if (language !== 'en') {
     document.documentElement.lang = 'ko';
+    normalizeHashtags();
     return;
   }
 
@@ -253,6 +264,8 @@
     if (suhoZhuanWorks) {
       suhoZhuanWorks.textContent = 'Major works: Romance of the Three Kingdoms, Su Ho Zhuan';
     }
+
+    normalizeHashtags();
   }
 
   translatePage();
