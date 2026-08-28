@@ -62,6 +62,7 @@
       libraryTab.classList.add('text-primary', 'font-bold');
       libraryTab.setAttribute('aria-current', 'page');
     }
+    if (matchHeading) matchHeading.textContent = "Writer's Profile";
   }
 
   const heroImage = document.getElementById('hero-image');
