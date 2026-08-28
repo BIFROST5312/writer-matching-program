@@ -31,6 +31,12 @@
     }
   }
 
+  const heroImage = document.getElementById('hero-image');
+  if (heroImage && window.matchMedia('(min-aspect-ratio: 1 / 1)').matches) {
+    heroImage.parentElement.style.aspectRatio = '16 / 6';
+    heroImage.parentElement.style.minHeight = '360px';
+  }
+
   if (language !== 'en') {
     document.documentElement.lang = 'ko';
     return;
