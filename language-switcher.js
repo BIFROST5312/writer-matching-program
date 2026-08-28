@@ -192,6 +192,14 @@
         matchHeading.textContent = `Match result: ${authorName}`;
       }
     }
+
+    document.querySelectorAll('#author-list a[href]').forEach((link) => {
+      const authorId = link.href.match(/\/_([0-9]+)\/code\.html/)?.[1];
+      const authorLabel = link.querySelectorAll('span')[1];
+      if (authorId && authorLabel && englishAuthorNames[authorId]) {
+        authorLabel.textContent = englishAuthorNames[authorId];
+      }
+    });
   }
 
   translatePage();
