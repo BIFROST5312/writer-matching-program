@@ -31,6 +31,12 @@
     }
   }
 
+  // 모든 내부 화면 이동은 현재 탭에서 이어집니다. 미리보기 환경에서도 새 창을 만들지 않습니다.
+  document.querySelectorAll('a[href]').forEach((link) => {
+    const linkUrl = new URL(link.href, window.location.href);
+    if (linkUrl.origin === window.location.origin) link.target = '_self';
+  });
+
   const heroImage = document.getElementById('hero-image');
   if (heroImage && window.matchMedia('(min-aspect-ratio: 1 / 1)').matches) {
     heroImage.parentElement.style.aspectRatio = '16 / 6';
