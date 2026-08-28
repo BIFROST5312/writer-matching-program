@@ -219,7 +219,7 @@
     }
 
     if (suhoZhuanWorks) {
-      suhoZhuanWorks.textContent = 'Major works: Romance of the Three Kingdoms, Su ho Zhuan';
+      suhoZhuanWorks.textContent = 'Major works: Romance of the Three Kingdoms, Su Ho Zhuan';
     }
   }
 
