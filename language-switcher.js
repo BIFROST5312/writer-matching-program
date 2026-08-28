@@ -1,4 +1,20 @@
 (function () {
+  // Vercel Web Analytics for this static site. Remove any personal query
+  // parameters before page views or events are sent to Vercel.
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  window.va('beforeSend', (event) => {
+    const eventUrl = new URL(event.url, window.location.origin);
+    ['name', 'birthdate', 'displayName'].forEach((key) => eventUrl.searchParams.delete(key));
+    return { ...event, url: eventUrl.toString() };
+  });
+  if (!document.getElementById('vercel-analytics-script')) {
+    const analyticsScript = document.createElement('script');
+    analyticsScript.id = 'vercel-analytics-script';
+    analyticsScript.defer = true;
+    analyticsScript.src = '/_vercel/insights/script.js';
+    document.head.appendChild(analyticsScript);
+  }
+
   const url = new URL(window.location.href);
   const matchingName = url.searchParams.get('name')?.trim() || '';
   const languagePreferenceKey = 'writer-matching-language';
