@@ -96,6 +96,12 @@
     16: { tags: ['gothic', 'passion', 'nature'], role: 'Your wild romantic', works: 'Wuthering Heights and Poems by Emily Brontë', theme: 'Passion and landscape can speak with the same fierce intensity.', traits: ['Emotional intensity', 'Gothic atmosphere', 'Natural imagery'], bio: 'An English novelist and poet remembered for the elemental power, haunting mood, and fierce emotion of Wuthering Heights.' },
     17: { tags: ['humanism', 'philosophy', 'classicism'], role: 'Your seeker of horizons', works: 'Faust, The Sorrows of Young Werther, and Wilhelm Meister’s Apprenticeship', theme: 'A restless mind can turn learning, longing, and action into a life’s work.', traits: ['Philosophical depth', 'Humanist insight', 'Classical beauty'], bio: 'A German writer, thinker, and scientist whose work embraces emotion, reason, art, and the lifelong pursuit of growth.' }
   };
+  const koreanProfileRoles = {
+    1: '당신의 모더니스트 반항아', 2: '당신의 조용한 관찰자', 3: '당신의 예리한 이야기꾼', 4: '당신의 방랑하는 이상주의자',
+    5: '당신의 도덕적 사실주의자', 6: '당신의 문학적 그림자', 7: '당신의 내면의 여행자', 8: '당신의 문학적 반항아',
+    9: '당신의 미지의 안내자', 10: '당신의 명료한 비평가', 11: '당신의 이야기 전략가', 12: '당신의 양심의 탐험가',
+    13: '당신의 재치 있는 동반자', 14: '당신의 미로의 창조자', 16: '당신의 야생의 낭만주의자', 17: '당신의 지평을 찾는 이'
+  };
   const resultId = url.pathname.match(/\/_([0-9]+)\/code\.html$/)?.[1];
   const publicDomainPortraits = {
     1: 'Leesang.jpg',
@@ -259,15 +265,17 @@
 
   if (language !== 'en') {
     document.documentElement.lang = 'ko';
+    const koreanHeroParagraphs = document.querySelector('[data-view="match-result"]')?.children[0]?.querySelectorAll('p');
     if (matchingName && matchedAuthorNames[resultId] && url.searchParams.get('from') !== 'library') {
-      const heroParagraphs = document.querySelector('[data-view="match-result"]')?.children[0]?.querySelectorAll('p');
-      if (heroParagraphs?.[0]) {
-        heroParagraphs[0].replaceChildren(
+      if (koreanHeroParagraphs?.[0]) {
+        koreanHeroParagraphs[0].replaceChildren(
           document.createTextNode(`${matchingName}님과 가장 잘 맞는 작가는`),
           document.createElement('br'),
           document.createTextNode(`${matchedAuthorNames[resultId]}입니다.`)
         );
       }
+    } else if (koreanHeroParagraphs?.[0] && koreanProfileRoles[resultId]) {
+      koreanHeroParagraphs[0].textContent = koreanProfileRoles[resultId];
     }
     normalizeHashtags();
     return;
