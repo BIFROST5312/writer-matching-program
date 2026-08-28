@@ -200,6 +200,13 @@
         authorLabel.textContent = englishAuthorNames[authorId];
       }
     });
+
+    if (url.pathname.endsWith('/_15/code.html')) {
+      const homeQuote = document.getElementById('main-quote');
+      const homeTitle = document.querySelector('main h1');
+      if (homeQuote) homeQuote.innerHTML = 'Meet the sound of<br>souls on paper';
+      if (homeTitle) homeTitle.innerHTML = 'Find your literary<br>companion';
+    }
   }
 
   translatePage();
