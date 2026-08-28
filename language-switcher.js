@@ -213,8 +213,29 @@
       word-break: keep-all;
       overflow-wrap: normal;
     }
+    .library-scroll-main {
+      height: var(--library-scroll-height) !important;
+      max-height: var(--library-scroll-height) !important;
+    }
   `;
   document.head.appendChild(mobileScrollStyle);
+
+  // The library header is part of the normal layout while its bottom menu is
+  // fixed. Reserve exactly their combined height so the final writer card can
+  // always scroll fully above the menu.
+  const libraryMain = document.querySelector('main:has(#author-list)');
+  const libraryHeader = document.querySelector('header');
+  const libraryNav = document.querySelector('nav');
+  if (libraryMain && libraryHeader && libraryNav) {
+    const resizeLibraryScrollArea = () => {
+      const availableHeight = Math.max(160, window.innerHeight - libraryHeader.offsetHeight - libraryNav.offsetHeight);
+      libraryMain.style.setProperty('--library-scroll-height', `${availableHeight}px`);
+    };
+    libraryMain.classList.add('library-scroll-main');
+    resizeLibraryScrollArea();
+    window.addEventListener('resize', resizeLibraryScrollArea, { passive: true });
+    window.visualViewport?.addEventListener('resize', resizeLibraryScrollArea, { passive: true });
+  }
 
   if (heroImage && window.matchMedia('(min-aspect-ratio: 1 / 1)').matches) {
     heroImage.parentElement.style.aspectRatio = '16 / 6';
