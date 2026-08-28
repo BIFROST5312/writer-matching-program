@@ -257,7 +257,13 @@
     document.documentElement.lang = 'ko';
     if (matchingName && matchedAuthorNames[resultId] && url.searchParams.get('from') !== 'library') {
       const heroParagraphs = document.querySelector('[data-view="match-result"]')?.children[0]?.querySelectorAll('p');
-      if (heroParagraphs?.[0]) heroParagraphs[0].textContent = `${matchingName}님과 가장 잘 맞는 작가는 ${matchedAuthorNames[resultId]}입니다.`;
+      if (heroParagraphs?.[0]) {
+        heroParagraphs[0].replaceChildren(
+          document.createTextNode(`${matchingName}님과 가장 잘 맞는 작가는`),
+          document.createElement('br'),
+          document.createTextNode(`${matchedAuthorNames[resultId]}입니다.`)
+        );
+      }
     }
     normalizeHashtags();
     return;
@@ -333,9 +339,15 @@
     const heroParagraphs = hero?.querySelectorAll('p');
     if (heroTitle) heroTitle.textContent = englishAuthorNames[resultId];
     if (heroParagraphs?.[0]) {
-      heroParagraphs[0].textContent = matchingName && url.searchParams.get('from') !== 'library'
-        ? `The writer who best matches ${matchingName} is ${englishAuthorNames[resultId]}.`
-        : profile.role;
+      if (matchingName && url.searchParams.get('from') !== 'library') {
+        heroParagraphs[0].replaceChildren(
+          document.createTextNode(`The writer who best matches ${matchingName} is`),
+          document.createElement('br'),
+          document.createTextNode(`${englishAuthorNames[resultId]}.`)
+        );
+      } else {
+        heroParagraphs[0].textContent = profile.role;
+      }
     }
     if (heroParagraphs?.[1]) heroParagraphs[1].textContent = `Major works: ${profile.works}`;
 
