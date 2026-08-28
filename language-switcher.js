@@ -44,6 +44,30 @@
     13: '제인 오스틴', 14: '호르헤 루이스 보르헤스', 16: '에밀리 브론테', 17: '요한 볼프강 폰 괴테'
   };
   const resultId = url.pathname.match(/\/_([0-9]+)\/code\.html$/)?.[1];
+  const publicDomainPortraits = {
+    1: 'Leesang.jpg',
+    2: 'Natsume Soseki photo.jpg',
+    3: 'Akutagawa.ryunosuke.jpg',
+    4: 'Miguel de Cervantes Saavedra 01.jpg',
+    5: 'Leo Tolstoy 1908 Portrait (3x4 cropped).jpg',
+    6: 'Kafka1906 cropped.jpg',
+    7: 'Hermann Hesse 1946.jpg',
+    8: 'Camus.JPG',
+    9: 'Italian Dante Alighieri.jpg',
+    10: '鲁迅 1909年摄于杭州.jpg',
+    11: '繡像三國志全傳 巻1 p11.jpg',
+    12: 'Dostoevsky 1872.jpg',
+    13: 'JaneAusten, by Cassandra Austen.jpg',
+    14: 'Jorge Luis Borges 1951, by Grete Stern.jpg',
+    16: 'Emily Brontë by Patrick Branwell Brontë restored.jpg',
+    17: 'Johann Wolfgang von Goethe 1817.jpg'
+  };
+  const heroImage = document.getElementById('hero-image');
+  if (heroImage && publicDomainPortraits[resultId]) {
+    const filename = encodeURIComponent(publicDomainPortraits[resultId]);
+    heroImage.style.backgroundImage = `url("https://commons.wikimedia.org/wiki/Special:FilePath/${filename}?width=1600")`;
+    heroImage.dataset.alt = 'Public-domain historical portrait from Wikimedia Commons';
+  }
   const matchHeading = Array.from(document.querySelectorAll('header span')).find((element) => {
     return element.textContent.replace(/\s+/g, '').startsWith('매칭결과');
   });
@@ -101,7 +125,6 @@
   mobileScrollStyle.textContent = 'html, body { min-height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }';
   document.head.appendChild(mobileScrollStyle);
 
-  const heroImage = document.getElementById('hero-image');
   if (heroImage && window.matchMedia('(min-aspect-ratio: 1 / 1)').matches) {
     heroImage.parentElement.style.aspectRatio = '16 / 6';
     heroImage.parentElement.style.minHeight = '360px';
