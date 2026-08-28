@@ -128,7 +128,11 @@
     return element.textContent.replace(/\s+/g, '').startsWith('매칭결과');
   });
   if (matchHeading && matchedAuthorNames[resultId]) {
-    matchHeading.textContent = `매칭결과: ${matchedAuthorNames[resultId]}`;
+    matchHeading.replaceChildren(
+      document.createTextNode('매칭결과:'),
+      document.createElement('br'),
+      document.createTextNode(matchedAuthorNames[resultId])
+    );
   }
 
   const matchTabLink = document.querySelector('nav [data-path="match-discovery"]');
@@ -320,7 +324,11 @@
     }
 
     if (englishAuthorNames[resultId] && url.searchParams.get('from') !== 'library' && matchHeading) {
-      matchHeading.textContent = `Match result: ${englishAuthorNames[resultId]}`;
+      matchHeading.replaceChildren(
+        document.createTextNode('Match result:'),
+        document.createElement('br'),
+        document.createTextNode(englishAuthorNames[resultId])
+      );
     }
   }
 
