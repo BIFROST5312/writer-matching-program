@@ -161,7 +161,11 @@
     const response = await fetch(endpoint);
     if (!response.ok) throw new Error('Translation request failed');
     const data = await response.json();
-    return data[0].map((part) => part[0]).join('');
+    const translated = data[0].map((part) => part[0]).join('');
+    // 자동 번역된 문구는 문장/구의 시작을 대문자로 표기합니다.
+    return translated.replace(/^(\s*(?:["'“‘(\[]\s*)*)([a-z])/, (match, prefix, letter) => {
+      return `${prefix}${letter.toUpperCase()}`;
+    });
   }
 
   async function translatePage() {
