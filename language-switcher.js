@@ -69,6 +69,9 @@
     17: 'Johann Wolfgang von Goethe 1817.jpg'
   };
   const heroImage = document.getElementById('hero-image');
+  const suhoZhuanWorks = resultId === '11'
+    ? Array.from(document.querySelectorAll('main p')).find((element) => element.textContent.includes('수호전'))
+    : null;
   if (heroImage && publicDomainPortraits[resultId]) {
     const filename = encodeURIComponent(publicDomainPortraits[resultId]);
     heroImage.style.backgroundImage = `url("https://commons.wikimedia.org/wiki/Special:FilePath/${filename}?width=1600")`;
@@ -213,6 +216,10 @@
       const birthDescription = birthTitle?.parentElement.querySelector('p');
       if (birthTitle) birthTitle.innerHTML = 'Please enter your<br>birthdate';
       if (birthDescription) birthDescription.textContent = 'We will match your literary companion';
+    }
+
+    if (suhoZhuanWorks) {
+      suhoZhuanWorks.textContent = 'Major works: Romance of the Three Kingdoms, Su ho Zhuan';
     }
   }
 
