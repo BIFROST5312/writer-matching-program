@@ -70,15 +70,20 @@
       libraryTab.setAttribute('aria-current', 'page');
     }
     if (matchHeading) {
-      matchHeading.textContent = "Writer's Profile";
       const libraryUrl = new URL('../_library/code.html', window.location.href);
       if (language === 'en') libraryUrl.searchParams.set('lang', 'en');
+      const profileTitleLink = document.createElement('a');
+      profileTitleLink.href = libraryUrl.toString();
+      profileTitleLink.className = matchHeading.className;
+      profileTitleLink.textContent = "Writer's Profile";
+      profileTitleLink.setAttribute('aria-label', '작가 목록으로 돌아가기');
+      matchHeading.replaceWith(profileTitleLink);
       const backButton = document.createElement('a');
       backButton.href = libraryUrl.toString();
       backButton.setAttribute('aria-label', '라이브러리로 돌아가기');
       backButton.className = 'flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-on-surface transition-colors hover:bg-surface-variant/30';
       backButton.innerHTML = '<span class="material-symbols-outlined text-[22px]">arrow_back</span>';
-      matchHeading.parentElement.prepend(backButton);
+      profileTitleLink.parentElement.prepend(backButton);
     }
   }
 
