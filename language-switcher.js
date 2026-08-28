@@ -360,7 +360,7 @@
         heroParagraphs[0].textContent = profile.role;
       }
     }
-    if (heroParagraphs?.[1]) heroParagraphs[1].textContent = `Major works: ${profile.works}`;
+    if (heroParagraphs?.[1]) heroParagraphs[1].textContent = `Major works: ${profile.works.replace(/, and /g, ', ')}`;
 
     const quoteCard = details?.children[0];
     const quoteParagraphs = quoteCard?.querySelectorAll('p');
