@@ -161,6 +161,40 @@
     });
   }
 
+  function setupBirthdateInput() {
+    const birthdateInput = document.getElementById('birthdate');
+    if (!birthdateInput) return;
+
+    // Device-native date pickers format values differently by locale. Use one
+    // consistent four-digit year / two-digit month / two-digit day field.
+    birthdateInput.type = 'text';
+    birthdateInput.placeholder = 'YYYY-MM-DD';
+    birthdateInput.inputMode = 'numeric';
+    birthdateInput.maxLength = 10;
+    birthdateInput.pattern = '\\d{4}-\\d{2}-\\d{2}';
+    birthdateInput.setAttribute('aria-label', language === 'en' ? 'Birthdate (YYYY-MM-DD)' : '생년월일 (YYYY-MM-DD)');
+    birthdateInput.addEventListener('input', (event) => {
+      const digits = birthdateInput.value.replace(/\D/g, '').slice(0, 8);
+      const isDeleting = event.inputType?.startsWith('delete');
+      let formatted = digits.slice(0, 4);
+      if (digits.length >= 4 && !(isDeleting && digits.length === 4)) formatted += '-';
+      if (digits.length > 4) formatted += digits.slice(4, 6);
+      if (digits.length >= 6 && !(isDeleting && digits.length === 6)) formatted += '-';
+      if (digits.length > 6) formatted += digits.slice(6, 8);
+      birthdateInput.value = formatted;
+
+      const parsed = new Date(`${formatted}T00:00:00Z`);
+      const isValid = /^\d{4}-\d{2}-\d{2}$/.test(formatted)
+        && !Number.isNaN(parsed.getTime())
+        && parsed.toISOString().slice(0, 10) === formatted;
+      birthdateInput.setCustomValidity(formatted && !isValid
+        ? (language === 'en' ? 'Please use a valid date in YYYY-MM-DD format.' : 'YYYY-MM-DD 형식의 올바른 날짜를 입력해 주세요.')
+        : '');
+    });
+  }
+
+  setupBirthdateInput();
+
   if (language !== 'en') {
     document.documentElement.lang = 'ko';
     normalizeHashtags();
@@ -168,26 +202,6 @@
   }
 
   document.documentElement.lang = 'en';
-  // Native date controls follow the device locale, so the English screen uses
-  // a fixed ISO-style field instead: YYYY-MM-DD.
-  const birthdateInput = document.getElementById('birthdate');
-  if (birthdateInput) {
-    birthdateInput.type = 'text';
-    birthdateInput.placeholder = 'YYYY-MM-DD';
-    birthdateInput.inputMode = 'numeric';
-    birthdateInput.pattern = '\\d{4}-\\d{2}-\\d{2}';
-    birthdateInput.setAttribute('aria-label', 'Birthdate (YYYY-MM-DD)');
-    birthdateInput.addEventListener('input', () => {
-      const value = birthdateInput.value;
-      const [year, month, day] = value.split('-').map(Number);
-      const parsed = new Date(Date.UTC(year, month - 1, day));
-      const isValid = /^\d{4}-\d{2}-\d{2}$/.test(value)
-        && parsed.getUTCFullYear() === year
-        && parsed.getUTCMonth() === month - 1
-        && parsed.getUTCDate() === day;
-      birthdateInput.setCustomValidity(value && !isValid ? 'Please use a valid date in YYYY-MM-DD format.' : '');
-    });
-  }
   document.querySelectorAll('a[href]').forEach((link) => {
     const linkUrl = new URL(link.href, window.location.href);
     if (linkUrl.origin === window.location.origin) {
