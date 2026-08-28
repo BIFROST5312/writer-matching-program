@@ -92,11 +92,14 @@
                 createInkDrop(btn, Math.random() * btn.offsetWidth, Math.random() * btn.offsetHeight, true);
             }
             setTimeout(() => {
-                const lastResultId = Number(sessionStorage.getItem('lastResultId'));
-                const candidates = resultScreenIds.filter((id) => id !== lastResultId);
-                const randomScreenId = candidates[Math.floor(Math.random() * candidates.length)];
-                sessionStorage.setItem('lastResultId', String(randomScreenId));
-                window.location.href = `../_${randomScreenId}/code.html`;
+                const birthdate = document.getElementById('birthdate').value;
+                // 날짜 문자열을 안정적인 숫자로 바꿔, 같은 생년월일에는 항상 같은 작가를 보여줍니다.
+                const dateHash = Array.from(birthdate).reduce(
+                    (hash, character) => ((hash * 31) + character.charCodeAt(0)) >>> 0,
+                    7
+                );
+                const matchedScreenId = resultScreenIds[dateHash % resultScreenIds.length];
+                window.location.href = `../_${matchedScreenId}/code.html`;
             }, 1600);
         });
 
