@@ -37,6 +37,20 @@
     if (linkUrl.origin === window.location.origin) link.target = '_self';
   });
 
+  const matchedAuthorNames = {
+    1: '이상', 2: '나쓰메 소세키', 3: '아쿠타가와 류노스케', 4: '미겔 데 세르반테스',
+    5: '레프 톨스토이', 6: '프란츠 카프카', 7: '헤르만 헤세', 8: '알베르 카뮈',
+    9: '단테 알리기에리', 10: '루쉰', 11: '나관중', 12: '표도르 도스토옙스키',
+    13: '제인 오스틴', 14: '호르헤 루이스 보르헤스', 16: '에밀리 브론테', 17: '요한 볼프강 폰 괴테'
+  };
+  const resultId = url.pathname.match(/\/_([0-9]+)\/code\.html$/)?.[1];
+  const matchHeading = Array.from(document.querySelectorAll('header span')).find((element) => {
+    return element.textContent.replace(/\s+/g, '').startsWith('매칭결과');
+  });
+  if (matchHeading && matchedAuthorNames[resultId]) {
+    matchHeading.textContent = `매칭결과: ${matchedAuthorNames[resultId]}`;
+  }
+
   const heroImage = document.getElementById('hero-image');
   if (heroImage && window.matchMedia('(min-aspect-ratio: 1 / 1)').matches) {
     heroImage.parentElement.style.aspectRatio = '16 / 6';
