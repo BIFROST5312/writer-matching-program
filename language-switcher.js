@@ -1,5 +1,6 @@
 (function () {
   const url = new URL(window.location.href);
+  const matchingName = url.searchParams.get('name')?.trim() || '';
   const languagePreferenceKey = 'writer-matching-language';
   const requestedLanguage = url.searchParams.get('lang');
   let savedLanguage = null;
@@ -112,6 +113,9 @@
   });
   if (matchHeading && matchedAuthorNames[resultId]) {
     matchHeading.textContent = `매칭결과: ${matchedAuthorNames[resultId]}`;
+    if (matchingName && url.searchParams.get('from') !== 'library') {
+      matchHeading.textContent = `${matchingName} 님과 가장 어울리는 작가는 ${matchedAuthorNames[resultId]}입니다.`;
+    }
   }
 
   const matchTabLink = document.querySelector('nav [data-path="match-discovery"]');
@@ -227,7 +231,14 @@
     });
   }
 
+  function setupNameInput() {
+    const nameInput = document.getElementById('displayName');
+    if (!nameInput) return;
+    if (language === 'en') nameInput.placeholder = 'Enter your name';
+  }
+
   setupBirthdateInput();
+  setupNameInput();
 
   if (language !== 'en') {
     document.documentElement.lang = 'ko';
@@ -242,6 +253,8 @@
   function applyEnglishCoreCopy() {
     const coreCopy = new Map([
       ['시작하기', 'Start'],
+      ['이름', 'Name'],
+      ['이름을 입력해 주세요', 'Enter your name'],
       ['매칭 결과 보기', 'View match result'],
       ['생일 정보는 저장되지 않습니다.', 'The birthdate information will not be saved.'],
       ['문학적 DNA를 읽는 중', 'Reading your literary DNA'],
@@ -284,7 +297,9 @@
     }
 
     if (englishAuthorNames[resultId] && url.searchParams.get('from') !== 'library' && matchHeading) {
-      matchHeading.textContent = `Match result: ${englishAuthorNames[resultId]}`;
+      matchHeading.textContent = matchingName
+        ? `The writer who best suits ${matchingName} is ${englishAuthorNames[resultId]}.`
+        : `Match result: ${englishAuthorNames[resultId]}`;
     }
   }
 
