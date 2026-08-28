@@ -204,6 +204,15 @@
       -webkit-overflow-scrolling: touch;
       touch-action: pan-y;
     }
+    /* Keep quotations visually calm: balance lines at word boundaries instead
+       of allowing a single short final line on narrow screens. */
+    [data-view="match-result"] > div:nth-child(2) > div:first-child > p:first-of-type {
+      max-width: min(100%, 30ch);
+      margin-inline: auto;
+      text-wrap: balance;
+      word-break: keep-all;
+      overflow-wrap: normal;
+    }
   `;
   document.head.appendChild(mobileScrollStyle);
 
