@@ -129,9 +129,6 @@
   });
   if (matchHeading && matchedAuthorNames[resultId]) {
     matchHeading.textContent = `매칭결과: ${matchedAuthorNames[resultId]}`;
-    if (matchingName && url.searchParams.get('from') !== 'library') {
-      matchHeading.textContent = `${matchingName} 님과 가장 어울리는 작가는 ${matchedAuthorNames[resultId]}입니다.`;
-    }
   }
 
   const matchTabLink = document.querySelector('nav [data-path="match-discovery"]');
@@ -258,6 +255,10 @@
 
   if (language !== 'en') {
     document.documentElement.lang = 'ko';
+    if (matchingName && matchedAuthorNames[resultId] && url.searchParams.get('from') !== 'library') {
+      const heroParagraphs = document.querySelector('[data-view="match-result"]')?.children[0]?.querySelectorAll('p');
+      if (heroParagraphs?.[0]) heroParagraphs[0].textContent = `${matchingName}님의 문학적 영혼의 짝은 ${matchedAuthorNames[resultId]}입니다.`;
+    }
     normalizeHashtags();
     return;
   }
@@ -313,9 +314,7 @@
     }
 
     if (englishAuthorNames[resultId] && url.searchParams.get('from') !== 'library' && matchHeading) {
-      matchHeading.textContent = matchingName
-        ? `The writer who best suits ${matchingName} is ${englishAuthorNames[resultId]}.`
-        : `Match result: ${englishAuthorNames[resultId]}`;
+      matchHeading.textContent = `Match result: ${englishAuthorNames[resultId]}`;
     }
   }
 
@@ -333,7 +332,11 @@
     const heroTitle = hero?.querySelector('h1');
     const heroParagraphs = hero?.querySelectorAll('p');
     if (heroTitle) heroTitle.textContent = englishAuthorNames[resultId];
-    if (heroParagraphs?.[0]) heroParagraphs[0].textContent = profile.role;
+    if (heroParagraphs?.[0]) {
+      heroParagraphs[0].textContent = matchingName && url.searchParams.get('from') !== 'library'
+        ? `${matchingName}'s literary soulmate is ${englishAuthorNames[resultId]}.`
+        : profile.role;
+    }
     if (heroParagraphs?.[1]) heroParagraphs[1].textContent = `Major works: ${profile.works}`;
 
     const quoteCard = details?.children[0];
