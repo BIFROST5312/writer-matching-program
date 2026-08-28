@@ -1,6 +1,17 @@
 (function () {
   const url = new URL(window.location.href);
-  const language = url.searchParams.get('lang') === 'en' ? 'en' : 'ko';
+  const languagePreferenceKey = 'writer-matching-language';
+  const requestedLanguage = url.searchParams.get('lang');
+  let savedLanguage = null;
+  try {
+    savedLanguage = window.localStorage.getItem(languagePreferenceKey);
+  } catch { /* Keep Korean as the fallback when storage is unavailable. */ }
+  const language = requestedLanguage === 'en' || (requestedLanguage !== 'ko' && savedLanguage === 'en') ? 'en' : 'ko';
+
+  // 주소에서 영어로 들어온 경우에도 이후 화면에서 같은 언어를 유지합니다.
+  if (requestedLanguage === 'en' || requestedLanguage === 'ko') {
+    try { window.localStorage.setItem(languagePreferenceKey, language); } catch { /* Ignore storage errors. */ }
+  }
   const target = document.querySelector('#lang-toggle') || Array.from(document.querySelectorAll('button')).find((button) => {
     return button.textContent.replace(/\s+/g, '').toUpperCase() === 'KR/EN';
   });
@@ -11,9 +22,10 @@
   controls.innerHTML = '<button class="rounded-full px-2 py-1 transition hover:bg-black/5" type="button" data-language="ko">KR</button><button class="rounded-full px-2 py-1 transition hover:bg-black/5" type="button" data-language="en">EN</button>';
 
   function moveToLanguage(nextLanguage) {
+    try { window.localStorage.setItem(languagePreferenceKey, nextLanguage); } catch { /* Ignore storage errors. */ }
     const nextUrl = new URL(window.location.href);
     if (nextLanguage === 'en') nextUrl.searchParams.set('lang', 'en');
-    else nextUrl.searchParams.delete('lang');
+    else nextUrl.searchParams.set('lang', 'ko');
     window.location.href = nextUrl.toString();
   }
 
