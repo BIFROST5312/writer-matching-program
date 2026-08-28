@@ -80,7 +80,9 @@
         });
 
         startButton?.addEventListener('click', () => {
-            window.location.href = '../_18/code.html';
+            const nextUrl = new URL('../_18/code.html', window.location.href);
+            if (new URL(window.location.href).searchParams.get('lang') === 'en') nextUrl.searchParams.set('lang', 'en');
+            window.location.href = nextUrl.toString();
         });
     });
-</script></main><script src="../language-switcher.js?v=32"></script></body></html>
+</script></main><script src="../language-switcher.js?v=33"></script></body></html>
