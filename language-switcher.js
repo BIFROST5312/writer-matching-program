@@ -143,7 +143,13 @@
   });
 
   const mobileScrollStyle = document.createElement('style');
-  mobileScrollStyle.textContent = 'html, body { min-height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }';
+  // Some mobile browsers inherit fixed-height or touch settings from the
+  // generated screen markup. Force the document itself to remain scrollable.
+  mobileScrollStyle.textContent = `
+    html { min-height: 100%; height: auto !important; overflow-x: hidden !important; overflow-y: auto !important; touch-action: pan-y pinch-zoom; }
+    body { min-height: 100dvh; height: auto !important; overflow-x: hidden !important; overflow-y: auto !important; position: relative !important; -webkit-overflow-scrolling: touch; touch-action: pan-y pinch-zoom; }
+    main { min-height: auto !important; }
+  `;
   document.head.appendChild(mobileScrollStyle);
 
   if (heroImage && window.matchMedia('(min-aspect-ratio: 1 / 1)').matches) {
