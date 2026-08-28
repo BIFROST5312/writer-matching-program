@@ -275,7 +275,7 @@
         );
       }
     } else if (koreanHeroParagraphs?.[0] && koreanProfileRoles[resultId]) {
-      koreanHeroParagraphs[0].textContent = koreanProfileRoles[resultId];
+      koreanHeroParagraphs[0].textContent = koreanProfileRoles[resultId].replace(/^당신의 /, '당신은 ');
     }
     normalizeHashtags();
     return;
@@ -365,7 +365,7 @@
           document.createTextNode(`${englishAuthorNames[resultId]}.`)
         );
       } else {
-        heroParagraphs[0].textContent = profile.role;
+        heroParagraphs[0].textContent = profile.role.replace(/^Your /, 'You are the ');
       }
     }
     if (heroParagraphs?.[1]) heroParagraphs[1].textContent = `Major works: ${profile.works.replace(/, and /g, ', ')}`;
