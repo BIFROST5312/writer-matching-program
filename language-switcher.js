@@ -51,6 +51,13 @@
     matchHeading.textContent = `매칭결과: ${matchedAuthorNames[resultId]}`;
   }
 
+  const matchTabLink = document.querySelector('nav [data-path="match-discovery"]');
+  if (matchTabLink && resultId) {
+    const homeUrl = new URL('../_15/code.html', window.location.href);
+    if (language === 'en') homeUrl.searchParams.set('lang', 'en');
+    matchTabLink.href = homeUrl.toString();
+  }
+
   if (url.searchParams.get('from') === 'library') {
     const matchTab = document.querySelector('nav [data-path="match-discovery"]');
     const libraryTab = document.querySelector('nav [data-path="library"]');
