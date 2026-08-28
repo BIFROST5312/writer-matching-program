@@ -282,6 +282,7 @@
       ['시작하기', 'Start'],
       ['이름', 'Name'],
       ['이름을 입력해 주세요', 'Enter your name'],
+      ['대표작:', 'Major works:'],
       ['매칭 결과 보기', 'View match result'],
       ['이름과 생년월일 정보는 저장되지 않습니다.', 'Name and birthdate information will not be saved.'],
       ['문학적 DNA를 읽는 중', 'Reading your literary DNA'],
@@ -297,7 +298,9 @@
     while (textWalker.nextNode()) coreTextNodes.push(textWalker.currentNode);
     coreTextNodes.forEach((node) => {
       const trimmed = node.nodeValue.trim();
-      const replacement = coreCopy.get(trimmed);
+      const replacement = trimmed.startsWith('대표작:')
+        ? `Major works:${trimmed.slice('대표작:'.length)}`
+        : coreCopy.get(trimmed);
       if (replacement) node.nodeValue = node.nodeValue.replace(trimmed, replacement);
     });
 
